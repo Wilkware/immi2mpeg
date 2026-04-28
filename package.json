@@ -1,0 +1,36 @@
+{
+    "name": "immi2mpeg",
+    "version": "1.0.0",
+    "description": "Blink Home System livestream WebSocket service — MPEG-TS to fMP4 via ffmpeg",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "DEBUG=immi2mpeg:* node --watch src/index.js"
+    },
+    "dependencies": {
+        "debug": "^4.3.7",
+        "ws": "^8.18.0"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "author": {
+        "name": "Wilkware",
+        "email": "heiko.wilknitz@wilkware.de"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Wilkware/immi2mpeg/issues"
+    },
+    "homepage": "https://github.com/Wilkware/immi2mpeg#readme",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Wilkware/immi2mpeg.git"
+    },
+    "keywords": [
+        "blink",
+        "livestream",
+        "liveview",
+        "websocket"
+    ]
+}

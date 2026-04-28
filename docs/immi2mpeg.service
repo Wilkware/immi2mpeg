@@ -1,0 +1,17 @@
+[Unit]
+Description=immi2mpeg
+[Service]
+ExecStart=/opt/immi2mpeg/src/index.js
+Restart=always
+User=pi
+Group=pi
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+Environment=DEBUG=immi2mpeg:*
+WorkingDirectory=/opt/immi2mpeg
+# Output to syslog
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=i2m
+[Install]
+WantedBy=multi-user.target
