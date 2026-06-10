@@ -90,8 +90,8 @@ class BlinkApi {
         // The endpoint differs slightly by camera type (owl = mini, regular = camera)
         const isOwl = (cameraType ?? "").toLowerCase() === "owl";
         const path = isOwl
-            ? `/api/v1/accounts/${accId}/networks/${networkId}/owls/${cameraId}/liveview`
-            : `/api/v5/accounts/${accId}/networks/${networkId}/cameras/${cameraId}/liveview`;
+            ? `/api/v2/accounts/${accId}/networks/${networkId}/owls/${cameraId}/liveview`
+            : `/api/v6/accounts/${accId}/networks/${networkId}/cameras/${cameraId}/liveview`;
 
         const url = `${this.baseUrl}${path}`;
         debug("POST %s", url);

@@ -1,6 +1,6 @@
 {
     "name": "immi2mpeg",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Blink Home System livestream WebSocket service — MPEG-TS to fMP4 via ffmpeg",
     "main": "src/index.js",
     "scripts": {
