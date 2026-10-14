@@ -16,6 +16,10 @@ const debug = require("debug")("immi2mpeg:api");
 const BASE_URL = (region) =>
     region ? `https://rest-${region}.immedia-semi.com` : "https://rest-prod.immedia-semi.com";
 
+// Accepted camera_type values per endpoint (Blink product names and blinkpy aliases)
+const OWL_TYPES = ["owl", "owls", "mini", "hawk"];
+const DOORBELL_TYPES = ["lotus", "doorbell", "doorbells"];
+
 /**
  * Minimal fetch wrapper using Node's built-in https module.
  * @param {string} url
@@ -87,14 +91,19 @@ class BlinkApi {
     async startLiveview({ accountId, networkId, cameraId, cameraType }) {
         const accId = accountId ?? this.accountId;
 
-        // The endpoint differs slightly by camera type (owl = mini, regular = camera)
-        const isOwl = (cameraType ?? "").toLowerCase() === "owl";
-        const path = isOwl
-            ? `/api/v2/accounts/${accId}/networks/${networkId}/owls/${cameraId}/liveview`
-            : `/api/v6/accounts/${accId}/networks/${networkId}/cameras/${cameraId}/liveview`;
+        // The endpoint differs by device type (owl = mini, lotus = doorbell, regular = camera)
+        const type = (cameraType ?? "").toLowerCase();
+        let path;
+        if (OWL_TYPES.includes(type)) {
+            path = `/api/v2/accounts/${accId}/networks/${networkId}/owls/${cameraId}/liveview`;
+        } else if (DOORBELL_TYPES.includes(type)) {
+            path = `/api/v2/accounts/${accId}/networks/${networkId}/doorbells/${cameraId}/liveview`;
+        } else {
+            path = `/api/v6/accounts/${accId}/networks/${networkId}/cameras/${cameraId}/liveview`;
+        }
 
         const url = `${this.baseUrl}${path}`;
-        debug("POST %s", url);
+        debug("POST %s (camera_type: %s)", url, cameraType);
         
         const resp = await request(url, {
             method: "POST",
